@@ -1,0 +1,42 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+.wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100vw;
+  height: 90vh;
+}
+.chart-wrapper{
+  padding: 0 2rem;
+  display: flex;
+  justify-content: space-between;
+  height: auto;
+  margin: 6rem 0rem;
+  
+}
+.lineGraph{
+  padding: 2rem 3rem;
+  height: 30rem;
+  width: 50rem;
+  box-shadow: var(--shadow);
+  border-radius: 0.5rem;
+}
+.pieGraph{
+  padding: 2rem 3rem !important;
+  box-shadow: var(--shadow);
+  border-radius: 0.5rem;
+  padding: 1rem 0;
+  cursor: pointer;
+}
+
+.noDataImg{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  border: none;
+  margin: 4rem 0;
+}
