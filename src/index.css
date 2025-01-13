@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&display=swap');
 
 :root {
   --theme: #2970ff;
@@ -10,75 +10,117 @@
 body {
   margin: 0;
   font-family: "Montserrat", sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
 }
 
-input {
-  font-family: "Montserrat", sans-serif;
-}
-
-
-.custom-input {
-  border: 0px;
-  border-bottom: 1px solid #000;
-  padding: 0.5rem 0rem;
-  width: 100%;
-  border-radius: 0;
-}
-
-.custom-input {
-  margin-top: -1rem !important;
-}
-
-.custom-input::placeholder {
-  color: rgba(0, 0, 0, 0.5);
-}
-
-.custom-input:focus {
-  outline: none;
-  opacity: 1;
-  transition: all 0.3s;
+.my-table-container {
+  padding: 2rem;
+  margin: 1rem;
+  box-shadow: var(--shadow);
+  border-radius: 0.5rem;
+  background: var(--white);
 }
 
 .input-flex {
   display: flex;
-  justify-content: flex-start;
   align-items: center;
-  gap: 0.5rem;
+  position: relative; /* Needed for the search icon placement */
+  flex-wrap: wrap; /* Allows wrapping for responsive layout */
+  gap: 1rem;
   width: 100%;
-  box-shadow: 0px 0px 30px 8px rgba(227, 227, 227, 0.75);
-  border-radius: 0.5rem;
-  padding: 0rem 0.5rem;
 }
 
 .input-flex input {
-  width: 100%;
-  padding: 0.5rem;
-  border: 0;
+  padding: 0.5rem 2.5rem 0.5rem 0.5rem; /* Adds padding for the search icon */
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 1rem;
+  width: 100%; /* Ensures full width */
 }
 
-.input-flex input:hover {
+.input-flex input:focus {
   outline: none;
+  border-color: var(--theme);
 }
 
-.select-input {
-  width: 30%;
-  margin-right: 10px;
+.input-flex img {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  pointer-events: none;
+}
+
+.btn {
+  padding: 0.5rem 1rem;
+  background: var(--theme);
+  color: var(--white);
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 1rem;
+}
+
+.btn:hover {
+  background: #245edc;
+}
+
+.my-table h2 {
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.input-radio {
   display: flex;
+  gap: 0.5rem;
+}
+
+.my-table > div {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  box-shadow: 0px 0px 30px 8px rgba(227, 227, 227, 0.75);
-  border-radius: 0.5rem !important;
-  padding: 0.2rem 0.5rem;
+  flex-wrap: wrap; /* Ensures responsiveness */
+  gap: 1rem;
 }
 
-.select-input-2>div {
-  border-width: 0px !important;
-  border-bottom-width: 1px !important;
-  border-radius: 0px !important;
-  border-color: #000 !important;
+/* Table responsiveness */
+.ant-table-wrapper {
+  overflow-x: auto;
+  border-radius: 8px;
 }
 
-.select-input>div {
-  border: 0px solid #fff !important;
+.ant-table td,
+.ant-table th {
+  text-align: left;
+  white-space: nowrap; /* Prevents text overflow */
+}
+
+.ant-table thead th {
+  background-color: #f7f7f7;
+  font-weight: 600;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+  .my-table > div {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .input-flex {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .ant-table td,
+  .ant-table th {
+    font-size: 0.9rem;
+  }
 }

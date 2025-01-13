@@ -1,17 +1,17 @@
 import { Radio, Select, Table } from 'antd'
 import { parse, unparse } from 'papaparse'
 import React, { useState } from 'react'
+import Input from '../Input'
 import { toast } from 'react-toastify'
 import SearchIcon from "../../assets/search.svg"
+import "./styles.css"
 
-// TransactionTable component handles displaying, filtering, sorting, exporting, and importing of transaction data
 function TransactionTable({ transactions, addTransaction, fetchTransactions }) {
-    // useState hooks for managing search, type filter, and sorting key states
     const [search, setSearch] = useState('')
     const [typeFilter, setTypeFilter] = useState('')
+    const [categoryFilter, setCategoryFilter] = useState('')
     const [sortKey, setSortKey] = useState('')
 
-    // Defining the columns for the Ant Design Table component
     const columns = [
         { title: "Name", dataIndex: "name", key: "name" },
         { title: "Amount", dataIndex: "amount", key: "amount" },
@@ -20,12 +20,12 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions }) {
         { title: "Date", dataIndex: "date", key: "date" },
     ]
 
-    // Filtering transactions based on search input and type filter
     let filteredTransactions = transactions.filter((item) => 
-        item.name.toLowerCase().includes(search.toLowerCase()) && item.type.includes(typeFilter)
+        item.name.toLowerCase().includes(search.toLowerCase()) && 
+        item.type.includes(typeFilter) &&
+        (categoryFilter ? item.tag === categoryFilter : true) // Apply category filter if selected
     );
 
-    // Sorting transactions based on the selected sort key (date or amount)
     let sortedTransactions = filteredTransactions.sort((a, b) => {
         if (sortKey === "date") {
             return new Date(a.date) - new Date(b.date);
@@ -36,139 +36,145 @@ function TransactionTable({ transactions, addTransaction, fetchTransactions }) {
         }
     });
 
-    // Function to export transactions to a CSV file
     function exportCSV() {
         var csv = unparse({
             fields: ["name", "type", "tag", "amount", "date"],
             data: transactions
         });
-        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" }); // Creating a Blob object with CSV data
-        const url = URL.createObjectURL(blob); // Creating a downloadable URL for the Blob
-        const link = document.createElement("a"); // Creating a temporary anchor element
+        const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
         link.href = url;
-        link.download = "transactions.csv"; // Setting the download filename
-        document.body.appendChild(link); // Adding the link to the document body
-        link.click(); // Programmatically clicking the link to start the download
-        document.body.removeChild(link); // Removing the link after download
+        link.download = "transactions.csv";
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
     }
 
-    // Function to import transactions from a CSV file
     function importFromCSV(event) {
-        event.preventDefault(); // Preventing default form submission behavior
+        event.preventDefault();
         try {
             parse(event.target.files[0], {
-                header: true, // Ensures the first row is treated as headers
+                header: true,
                 complete: async function (results) {
-                    // Looping through parsed CSV data to add each transaction
                     for (const transaction of results.data) {
                         const newTransaction = {
                             ...transaction,
-                            amount: parseFloat(transaction.amount) // Ensuring amount is a number
+                            amount: parseFloat(transaction.amount)
                         };
-                        await addTransaction(newTransaction, true); // Adding the transaction
+                        await addTransaction(newTransaction, true);
                     }
                 }
             });
-            toast.success("All transactions Added!"); // Displaying success message
-            fetchTransactions(); // Fetching updated transactions list
-            event.target.files = null; // Resetting the file input
+            toast.success("All transactions Added!");
+            fetchTransactions();
+            event.target.files = null;
         } catch (e) {
-            toast.error(e.message); // Displaying error message if parsing fails
+            toast.error(e.message);
         }
     }
 
-    // Returning the JSX for the TransactionTable component
     return (
+        <div style={{ padding: "2rem 2rem", boxShadow: "var(--shadow)", margin: "1rem 2rem", borderRadius: "0.5rem" }}>
         <div
-            style={{
-                padding: "2rem 2rem",
-                boxShadow: "var(--shadow)",
-                margin: "1rem 2rem",
-                borderRadius: "0.5rem"
-            }}
+          style={{
+            display: "flex",
+            flexDirection: "row", // Default to row for screens above 768px
+            gap: "1rem",
+            alignItems: "center",
+            marginBottom: "1rem",
+            flexWrap: "wrap", // Allows wrapping of elements if needed
+          }}
         >
-            {/* Search and filter section */}
-            <div
-                style={{
-                    display: "flex",
-                    justifyContent: "space-between",
-                    gap: "1rem",
-                    alignItems: "center",
-                    marginBottom: "1rem"
-                }}
+          
+          <div className="input-flex" style={{ flex: "1 1 auto" }}>
+            <img src={SearchIcon} alt="search" width={"16"} />
+            <input 
+              value={search} 
+              onChange={(e) => setSearch(e.target.value)} 
+              placeholder="Search By Name" 
+              style={{ width: "100%" }} // Ensures input takes full width
+            />
+          </div>
+      
+          <div className="input-flex" style={{ flex: "1 1 auto" }}>
+            <Select
+              className="select-input"
+              onChange={(value) => { 
+                setTypeFilter(value);
+                setCategoryFilter(''); // Reset category filter when type changes
+              }}
+              value={typeFilter}
+              placeholder="Filter"
+              style={{ width: "100%" }} // Ensures select input takes full width
             >
-                {/* Search input */}
-                <div className='input-flex'>
-                    <img src={SearchIcon} alt='search' width={"16"} />
-                    <input
-                        value={search}
-                        onChange={(e) => setSearch(e.target.value)}
-                        placeholder='search By name'
-                    />
-                </div>
-
-                {/* Type filter dropdown */}
-                <Select
-                    className='select-input'
-                    onChange={(value) => setTypeFilter(value)}
-                    value={typeFilter}
-                    placeholder="Filter"
-                >
-                    <Select.Option value="">All</Select.Option>
-                    <Select.Option value="income">Income</Select.Option>
-                    <Select.Option value="expense">Expense</Select.Option>
-                </Select>
+              <Select.Option value="">All</Select.Option>
+              <Select.Option value="income">Income</Select.Option>
+              <Select.Option value="expense">Expense</Select.Option>
+            </Select>
+          </div>
+      
+          {typeFilter && (
+            <div className="input-flex" style={{ flex: "1 1 auto" }}>
+              <Select
+                className="select-input-2"
+                onChange={setCategoryFilter}
+                value={categoryFilter || ''}
+                style={{ width: "100%" }} // Ensures select input takes full width
+              >
+                {typeFilter === 'income' ? (
+                  <>
+                    <Select.Option value="">Select By Tag</Select.Option>
+                    <Select.Option value="salary">Salary</Select.Option>
+                    <Select.Option value="freelance">Freelance</Select.Option>
+                    <Select.Option value="investment">Investment</Select.Option>
+                    <Select.Option value="Deposits">Deposits</Select.Option>
+                    <Select.Option value="Lottery">Lottery</Select.Option>
+                    <Select.Option value="Gifts">Gifts</Select.Option>
+                    <Select.Option value="Savings">Savings</Select.Option>
+                    <Select.Option value="Rental Income">Rental Income</Select.Option>
+                    <Select.Option value="Extra Income">Extra Income</Select.Option>
+                  </>
+                ) : typeFilter === 'expense' ? (
+                  <>
+                    <Select.Option value="food">Food</Select.Option>
+                    <Select.Option value="shopping">Shopping</Select.Option>
+                    <Select.Option value="liability">Liability</Select.Option>
+                    <Select.Option value="Bills">Bills</Select.Option>
+                    <Select.Option value="Cars">Cars</Select.Option>
+                    <Select.Option value="Phone">Phone</Select.Option>
+                    <Select.Option value="House">House</Select.Option>
+                    <Select.Option value="Pets">Pets</Select.Option>
+                    <Select.Option value="Entertainment">Entertainment</Select.Option>
+                    <Select.Option value="Travel">Travel</Select.Option>
+                    <Select.Option value="Other">Other</Select.Option>
+                  </>
+                ) : null}
+              </Select>
             </div>
+          )}
+      
+        </div>
 
-            {/* Transactions table header with export and import buttons */}
+      
+     
             <div className='my-table'>
-                <div
-                    style={{
-                        display: "flex",
-                        width: "100%",
-                        justifyContent: "space-between",
-                        alignItems: "center",
-                        marginBottom: "1rem"
-                    }}
-                >
+                <div style={{ display: "flex", width: "100%", justifyContent: "space-between", alignItems: "center", marginBottom: "1rem" }}>
                     <h2>My Transactions</h2>
-                    {/* Radio buttons for sorting */}
-                    <Radio.Group
-                        className='input-radio'
-                        onChange={(e) => setSortKey(e.target.value)}
-                        value={sortKey}
-                    >
+                    <Radio.Group className='input-radio' onChange={(e) => setSortKey(e.target.value)} value={sortKey}>
                         <Radio.Button value={""}>No Sort</Radio.Button>
                         <Radio.Button value={"date"}>Sort By Date</Radio.Button>
                         <Radio.Button value={"amount"}>Sort By Amount</Radio.Button>
                     </Radio.Group>
 
-                    {/* Export and Import buttons */}
-                    <div
-                        style={{
-                            display: "flex",
-                            width: "400px",
-                            alignItems: "center",
-                            gap: "1rem"
-                        }}>
-                        <button className='btn' onClick={exportCSV}>
-                            Export to CSV
-                        </button>
-                        <label htmlFor='file-csv' className='btn btn-blue'>
-                            Import from CSV
-                        </label>
-                        <input
-                            id='file-csv'
-                            type='file'
-                            accept='.csv'
-                            required
-                            style={{ display: "none" }}
-                            onChange={importFromCSV} />
+                    <div style={{ display: "flex", width: "400px", alignItems: "center", gap: "1rem" }}>
+                        <button className='btn' onClick={exportCSV}>Export to CSV</button>
+                        <label htmlFor='file-csv' className='btn btn-blue'>Import from CSV</label>
+                        <input id='file-csv' type='file' accept='.csv' required style={{ display: "none" }} onChange={importFromCSV} />
                     </div>
                 </div>
             </div>
 
-            {/* Transactions table displaying sorted and filtered data */}
             <Table columns={columns} dataSource={sortedTransactions} />
         </div>
     );

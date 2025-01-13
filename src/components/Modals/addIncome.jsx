@@ -71,12 +71,12 @@ function AddIncomeModal({
                         <Select.Option value="salary">Salary</Select.Option>
                         <Select.Option value="freelance">Freelance</Select.Option>
                         <Select.Option value="investement">Investement</Select.Option>
-                        <Select.Option value="investement">Deposits</Select.Option>
-                        <Select.Option value="investement">Lottery</Select.Option>
-                        <Select.Option value="investement">Gifts</Select.Option>
-                        <Select.Option value="investement">Savings</Select.Option>
-                        <Select.Option value="investement">Rental Income</Select.Option>
-                        <Select.Option value="investement">Extra Income</Select.Option>
+                        <Select.Option value="Deposits">Deposits</Select.Option>
+                        <Select.Option value="Lottery">Lottery</Select.Option>
+                        <Select.Option value="Gifts">Gifts</Select.Option>
+                        <Select.Option value="Savings">Savings</Select.Option>
+                        <Select.Option value="Rental Income">Rental Income</Select.Option>
+                        <Select.Option value="Extra Income">Extra Income</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item>

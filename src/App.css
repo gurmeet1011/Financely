@@ -1,36 +1,93 @@
-*{
+/* Global Reset */
+* {
   margin: 0;
   padding: 0;
+  box-sizing: border-box;
 }
-.wrapper{
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #f9f9f9;
+}
+
+.chart-wrapper {
   display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100vw;
-  height: 90vh;
+  flex-direction: column;
+  gap: 2rem;
+  padding: 1rem;
 }
-.chart-wrapper{
-  padding: 0 2rem;
+
+.chart-row {
   display: flex;
   justify-content: space-between;
+  gap: 2rem;
+  flex-wrap: nowrap; /* Ensure both charts stay side by side */
+}
+
+.lineGraph,
+.pieGraph {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+.lineGraph {
+  flex: 0 0 60%; /* 60% width for the line chart */
+}
+
+.pieGraph {
+  flex: 0 0 40%; /* 40% width for the pie chart */
+}
+
+.pieGraph canvas {
+  max-width: 250px;
+  max-height: 250px; /* Decreased max height for pie chart */
+  width: 100%;
   height: auto;
-  margin: 6rem 0rem;
-  
 }
-.lineGraph{
-  padding: 2rem 3rem;
-  height: 30rem;
-  width: 50rem;
-  box-shadow: var(--shadow);
-  border-radius: 0.5rem;
+
+.lineGraph canvas {
+  max-width: 100%;
+  max-height: 250px; /* Decreased max height for line chart */
+  height: auto;
 }
-.pieGraph{
-  padding: 2rem 3rem !important;
-  box-shadow: var(--shadow);
-  border-radius: 0.5rem;
-  padding: 1rem 0;
-  cursor: pointer;
+
+@media (max-width: 600px) {
+  .chart-row {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .lineGraph,
+  .pieGraph {
+    max-width: 100%;
+  }
+
+  .pieGraph canvas {
+    max-width: 250px;
+    max-height: 250px; /* Further reduced height for smaller screens */
+  }
 }
+
+@media (max-width: 480px) {
+  .chart-row {
+    flex-direction: column; /* Stack the charts vertically on very small screens */
+    align-items: center;
+  }
+
+  .lineGraph, 
+  .pieGraph {
+    max-width: 100%;
+    margin-bottom: 1rem; /* Add space between charts when stacked */
+  }
+}
+
 
 .noDataImg{
   display: flex;

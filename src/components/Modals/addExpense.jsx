@@ -72,14 +72,14 @@ function AddExpenseModal({
                         <Select.Option value="food">Food</Select.Option>
                         <Select.Option value="shopping">Shopping</Select.Option>
                         <Select.Option value="liability">Liability</Select.Option>
-                        <Select.Option value="liability">Bills</Select.Option>
-                        <Select.Option value="liability">Cars</Select.Option>
-                        <Select.Option value="liability">Phone</Select.Option>
-                        <Select.Option value="liability">House</Select.Option>
-                        <Select.Option value="liability">Pets</Select.Option>
-                        <Select.Option value="liability">Entertainment</Select.Option>
-                        <Select.Option value="liability">Travel</Select.Option>
-                        <Select.Option value="liability">Other</Select.Option>
+                        <Select.Option value="Bills">Bills</Select.Option>
+                        <Select.Option value="Cars">Cars</Select.Option>
+                        <Select.Option value="Phone">Phone</Select.Option>
+                        <Select.Option value="House">House</Select.Option>
+                        <Select.Option value="Pets">Pets</Select.Option>
+                        <Select.Option value="Entertainment">Entertainment</Select.Option>
+                        <Select.Option value="Travel">Travel</Select.Option>
+                        <Select.Option value="Other">Other</Select.Option>
                     </Select>
                 </Form.Item>
                 <Form.Item>

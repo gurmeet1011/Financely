@@ -1,4 +1,5 @@
-.navbar{
+/* Navbar styling */
+.navbar {
     background-color: var(--theme);
     position: sticky;
     top: 0;
@@ -14,12 +15,60 @@
     z-index: 1000;
 }
 
-.link{
+/* Logo styling */
+.navbar .logo {
+    font-size: 1.5rem;
+    font-weight: 600;
+}
+
+/* User profile and logout styling */
+.navbar .link {
     cursor: pointer;
     opacity: 0.8;
 }
 
-.link:hover{
+.navbar .link:hover {
     opacity: 1;
-    transition: all 0.3sec;
+    transition: all 0.3s;
+}
+
+/* Styling for the user section */
+.navbar img {
+    border-radius: 50%;
+    height: 2rem;
+    width: 2rem;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* Stack items vertically on small screens */
+    .navbar {
+        flex-direction: row;
+        justify-content: space-between;
+    }
+
+    /* Adjust layout for smaller screens while keeping the logout button on the right */
+    .navbar .logo {
+        font-size: 1.2rem; /* Smaller logo size on mobile */
+    }
+
+    .navbar .link {
+        font-size: 1rem; /* Smaller text for links on mobile */
+    }
+
+    .navbar img {
+        height: 1.5rem;
+        width: 1.5rem; /* Reduce image size on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    /* Adjust logo and links further on very small screens */
+    .navbar .logo {
+        font-size: 1rem; /* Even smaller logo size */
+    }
+
+    .navbar .link {
+        font-size: 0.9rem; /* Smaller font for links on very small screens */
+    }
 }

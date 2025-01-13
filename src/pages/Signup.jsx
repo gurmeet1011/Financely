@@ -6,7 +6,12 @@ function Signup() {
   return (
     <div>
         <Header/>
-        <div className='wrapper'>
+        <div className='wrapper' style={{ 
+            display: 'flex', 
+            justifyContent: 'center', 
+            alignItems: 'center', 
+            height: '100vh' 
+        }}>
             <SignupSignin/>
         </div>
     </div>
