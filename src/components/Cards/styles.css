@@ -1,16 +1,18 @@
 .my-card {
     box-shadow: var(--shadow);
-    margin: 1rem;
     border-radius: 0.5rem;
     min-width: 300px; /* Decrease the minimum width for responsiveness */
     flex: 1;
+    width: 100%; /* Ensure the card occupies the available space */
 }
 
+/* Title within the card */
 .ant-card-head-title {
     margin: 0px !important;
     font-weight: 600;
 }
 
+/* Container for the row of cards */
 .my-row {
     display: flex;
     justify-content: space-between;
@@ -18,8 +20,13 @@
     margin: 2rem auto;
     flex-wrap: wrap;
     gap: 16px;
+    max-width: 1200px; /* Limit width to avoid overflow */
+    width: 100%;
+    padding: 0 1rem; /* Ensure equal margin on both sides */
+    box-sizing: border-box; /* Prevent padding from affecting the layout */
 }
 
+/* Paragraph styling inside card */
 .my-card p {
     margin: 0;
 }
@@ -34,9 +41,10 @@
 @media (max-width: 768px) {
     .my-row {
         flex-direction: column; /* Stack the cards vertically */
-        align-items: flex-start; /* Align cards to the left */
+        align-items: center; /* Center the cards */
+        padding: 0 1rem; /* Keep consistent padding */
     }
-    
+
     .my-card {
         min-width: 100%; /* Make cards take full width */
         margin-bottom: 1rem; /* Add space between stacked cards */

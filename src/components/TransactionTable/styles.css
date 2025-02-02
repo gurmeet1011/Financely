@@ -1,0 +1,155 @@
+.my-table {
+    width: 100%;
+    padding: 1rem;
+}
+
+/* Header */
+.table-header {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+    gap: 1rem;
+    text-align: center;
+}
+#heading {
+    text-align: center; /* Horizontally center the text */
+    margin: 0; /* Remove default margin */
+    width: 100%; /* Ensures it takes up full width */
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    height: 100%; /* Ensures it takes the full height of the parent */
+}
+
+/* Fix for radio buttons going out of bound */
+.radio-container {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    flex-wrap: wrap; /* Allows items to wrap instead of overflow */
+}
+
+.input-radio {
+    display: flex;
+    flex-wrap: wrap; /* Ensures radio buttons wrap on smaller screens */
+    justify-content: center;
+    gap: 0.5rem;
+    text-align: center;
+}
+
+.btn-container {
+    display: flex;
+    justify-content: flex-end; /* Default to right-aligned for larger screens */
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: nowrap; /* Prevent wrapping */
+    width: 100%;
+}
+
+/* Make buttons taller and center content inside */
+.btn, .btn-blue {
+    min-width: 150px; /* Ensure same width */
+    height: 60px; /* Increased height */
+    display: flex;
+    flex-direction: column; /* Stack text inside the button */
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: nowrap;
+    font-size: 14px;
+    padding: 0.5rem;
+    box-sizing: border-box;
+}
+
+/* Make the text inside the button properly aligned */
+.btn span,
+.btn-blue span {
+    display: block;
+    font-size: 14px;
+}
+
+/* Hover Effects */
+.btn:hover, .btn-blue:hover {
+    opacity: 0.9;
+}
+
+/* Mobile Responsive Fix */
+@media (max-width: 768px) {
+    .table-header {
+        flex-direction: column;
+        /* justify-content:center; */
+        align-items: center;
+    }
+
+    /* Fix for overflowing radio buttons */
+    .radio-container {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+    }
+
+    .input-radio {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap; /* Allows radio buttons to wrap properly */
+        text-align: center;
+    }
+
+    .btn-container {
+        flex-direction: row; /* Keep buttons side by side */
+        justify-content: center; /* Center the buttons horizontally on small screens */
+        align-items: center; /* Center horizontally */
+        gap: 1rem;
+        width: 100%;
+    }
+
+    .btn, .btn-blue {
+        min-width: 120px; /* Adjusted width */
+        height: 60px; /* Same height for both buttons */
+    }
+}
+
+/* For very small screens like 320px */
+@media (max-width: 320px) {
+    .btn-container {
+        flex-direction: row; /* Keep buttons side by side */
+        justify-content: center; /* Center horizontally */
+        align-items: center;
+        gap: 1rem;
+        width: 100%;
+        text-align: center;
+    }
+
+    .btn, .btn-blue {
+        min-width: 100px; /* Make them slightly smaller on very small screens */
+        height: 50px; /* Adjust height slightly for small screens */
+    }
+}
+/* Container for filters (Income/Expense and Tag selection) */
+.filter-container {
+    display: flex;
+    justify-content: space-between; /* Ensures side-by-side layout */
+    gap: 1rem; /* Adds space between the two select elements */
+    width: 100%;
+  }
+  
+  /* Make sure the selects are equal width */
+  .select-input, .select-input-2 {
+    width: 48%; /* Ensures both selects take up almost equal space */
+  }
+  
+  /* For small screens (below 768px), allow them to wrap to center */
+  @media (max-width: 768px) {
+    .filter-container {
+      flex-direction: column; /* Stack the selects vertically on smaller screens */
+      align-items: center; /* Center them */
+    }
+  
+    .select-input, .select-input-2 {
+      width: 80%; /* Adjust width to allow some spacing */
+    }
+  }
+  

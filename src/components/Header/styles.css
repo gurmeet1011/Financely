@@ -13,6 +13,9 @@
     font-size: 1.2rem;
     font-weight: 500;
     z-index: 1000;
+    width: 100%; /* Ensure the navbar takes up the full width */
+    box-sizing: border-box; /* Prevent padding from affecting the width */
+    overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 /* Logo styling */
@@ -45,6 +48,8 @@
     .navbar {
         flex-direction: row;
         justify-content: space-between;
+        flex-wrap: wrap; /* Allow wrapping of elements */
+        width: 100%;
     }
 
     /* Adjust layout for smaller screens while keeping the logout button on the right */
