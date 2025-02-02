@@ -17,7 +17,7 @@ body {
   padding: 1rem;
   width: 100%;
   margin: 1rem auto; /* Ensure the wrapper is centered */
-  max-width: 1200px; /* Max width for the chart wrapper */
+  max-width: 1440px; /* Max width for the chart wrapper */
 }
 
 .chart-row {
