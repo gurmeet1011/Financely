@@ -1,18 +1,21 @@
-.signup-wrapper{
+.signup-wrapper {
     padding: 1rem 1.5rem;
-    border-radius:1rem ;
-    box-shadow:var(--shadow);
-    width: 70%;
+    border-radius: 1rem;
+    box-shadow: var(--shadow);
+    width: 90%;
     max-width: 450px;
+    min-width: 280px;
     height: auto;
 }
 
-.title{
+.title {
     font-size: 1.2rem;
     text-align: center;
     font-weight: 500;
+    margin-bottom: 1.5rem; /* Added spacing between title and input fields */
 }
-.p-login{
+
+.p-login {
     text-align: center;
     font-weight: 300;
     font-size: 0.8rem;
